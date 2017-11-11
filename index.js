@@ -10,11 +10,12 @@ var info = new PassThrough;
 
 var start = function(options) {
     options = options || {};
+    format = "format" in options ? options.format : "dat";
     
     if(ps == null) {
         ps = isMacOrWin
-        ? spawn('sox', ['-d', '-t', 'dat', '-p'])
-        : spawn('arecord', ['-D', 'plughw:1,0', '-f', 'dat']);
+        ? spawn('sox', ['-d', '-t', format, '-p'])
+        : spawn('arecord', ['-f', format]);
 
         if(options.mp3output === true) {
             var encoder = new lame.Encoder( {
